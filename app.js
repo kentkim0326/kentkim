@@ -85,6 +85,7 @@
       for (var i = 0; i < PLACES.length; i++) {
         var p = PLACES[i];
         var line = (lang === "ko" ? p.ko : p.en) + '<span class="kr">' + (lang === "ko" ? p.en : p.ko) + "</span>";
+        if (p.word) line += '<span class="word">' + p.word + "</span>";
         html += "<li>" + (p.video ? '<a href="' + p.video + '" target="_blank" rel="noopener">' + line + "</a>" : line) + "</li>";
       }
       list.innerHTML = html;

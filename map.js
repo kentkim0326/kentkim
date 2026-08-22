@@ -11,7 +11,7 @@
 
   var map = L.map(el, { scrollWheelZoom: false }).setView([36.5, 127.9], 7);
 
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
     attribution: '&copy; OpenStreetMap &copy; CARTO',
     maxZoom: 18
   }).addTo(map);
@@ -19,9 +19,10 @@
   var group = [];
   PLACES.forEach(function (p) {
     var m = L.circleMarker([p.lat, p.lng], {
-      radius: 7, color: "#8c2f24", weight: 2, fillColor: "#8c2f24", fillOpacity: 0.75
+      radius: 7, color: "#c8a45c", weight: 2, fillColor: "#c8a45c", fillOpacity: 0.75
     }).addTo(map);
     var body = "<strong>" + p.en + "</strong><br>" + p.ko;
+    if (p.word) body += '<br><em style="color:#8a6a25">' + p.word + "</em>";
     if (p.video) body += '<br><a href="' + p.video + '" target="_blank" rel="noopener">video →</a>';
     m.bindPopup(body);
     group.push([p.lat, p.lng]);

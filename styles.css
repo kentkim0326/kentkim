@@ -134,3 +134,10 @@ html[lang="ko"] h2{font-size:clamp(1.5rem,3vw,2.3rem);line-height:1.35}
 html[lang="ko"] .lede{font-size:clamp(1.05rem,1.9vw,1.35rem);line-height:1.7}
 html[lang="ko"] .pull{font-size:clamp(1.25rem,3vw,2.1rem);line-height:1.5;max-width:24ch}
 html[lang="ko"] body{word-break:keep-all}
+
+/* 장소 목록에 그 자리에서 그린 낱말 */
+.place-list .word{display:block;font-family:var(--serif);font-size:1.02rem;color:var(--gold);
+  margin-top:2px;letter-spacing:.01em}
+.leaflet-popup-content-wrapper{background:#161412;color:#ece7dd;border-radius:2px}
+.leaflet-popup-tip{background:#161412}
+.leaflet-container a.leaflet-popup-close-button{color:#6f6961}
