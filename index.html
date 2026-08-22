@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kent Kim — painter</title>
+<meta name="description" content="Kent Kim, painter. Black and white with silver and gold acrylic, in which Hangul, Chinese characters and the Roman alphabet merge into a single stroke. Ongoing project: 133 Places, painting made on site across Korea.">
+<meta property="og:title" content="Kent Kim">
+<meta property="og:description" content="The same question, asked thirty-five years later, in one hundred and thirty-three locations.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Inter:wght@400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">Kent Kim</a>
+    <nav class="site-nav">
+      <a href="index.html" aria-current="page" data-t="nav.work">Work</a>
+      <a href="places.html" data-t="nav.places">133 Places</a>
+      <a href="about.html" data-t="nav.about">About</a>
+    </nav>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ko" aria-pressed="false">KO</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="hero" id="hero">
+  <div class="hero-img" data-img="assets/works/hero.jpg" data-hero="1"></div>
+  <div class="wrap">
+    <h1 data-t="hero.h1">One stroke, three alphabets.</h1>
+    <p class="sub" data-t="hero.sub">Black and white with silver and gold acrylic. Hangul, Chinese characters and the Roman alphabet written into one another until the line belongs to none of them.</p>
+  </div>
+  <p class="cap" id="heroCap"></p>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <p class="lede" data-t="intro.p1">In 1989, at sixteen, Kent Kim moved from Seoul to New Jersey. He began painting with Hangul almost immediately — a script he could still write fluently, in a country where it meant nothing to anyone around him.</p>
+    <p data-t="intro.p2">That is the question the work has been asking ever since, and it has not changed: what happens to a language when it arrives somewhere it cannot be read. Since 2023 he has been asking it on site, in one hundred and thirty-three places across Korea.</p>
+    <p><a class="link" href="places.html" data-t="intro.link">133 Places →</a></p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow" data-t="works.eyebrow">Selected work</p>
+    <div class="works" id="worksGrid">
+      <figure><div class="frame" data-img="assets/works/work-01.jpg"><span class="await" data-t="await">Image to be added</span></div></figure>
+      <figure><div class="frame" data-img="assets/works/work-02.jpg"><span class="await" data-t="await">Image to be added</span></div></figure>
+      <figure><div class="frame" data-img="assets/works/work-03.jpg"><span class="await" data-t="await">Image to be added</span></div></figure>
+      <figure><div class="frame" data-img="assets/works/work-04.jpg"><span class="await" data-t="await">Image to be added</span></div></figure>
+      <figure><div class="frame" data-img="assets/works/work-05.jpg"><span class="await" data-t="await">Image to be added</span></div></figure>
+      <figure><div class="frame" data-img="assets/works/work-06.jpg"><span class="await" data-t="await">Image to be added</span></div></figure>
+    </div>
+    <p class="muted" style="margin-top:30px;font-size:.85rem" data-t="works.note">Captions follow the form: title, medium, dimensions, year.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <blockquote class="pull" data-t="quote"><i>One Hundred and Thirty-Three Places</i> is not a new departure. It is the same question, asked <span class="em">thirty-five years later</span>, in one hundred and thirty-three locations.</blockquote>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> Kent Kim</span>
+    <span><a class="link" href="mailto:kentkim@gmail.com">kentkim@gmail.com</a></span>
+  </div>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

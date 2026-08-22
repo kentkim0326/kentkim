@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>133 Places — Kent Kim</title>
+<meta name="description" content="One Hundred and Thirty-Three Places (2023– ): painting made on site across Korea by Kent Kim, each work titled after the place and recorded on video from first mark to last.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Inter:wght@400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">Kent Kim</a>
+    <nav class="site-nav">
+      <a href="index.html" data-t="nav.work">Work</a>
+      <a href="places.html" aria-current="page" data-t="nav.places">133 Places</a>
+      <a href="about.html" data-t="nav.about">About</a>
+    </nav>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ko" aria-pressed="false">KO</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section style="padding-top:clamp(120px,16vh,200px)">
+  <div class="wrap">
+    <p class="eyebrow">2023 —</p>
+    <h1><i>One Hundred and<br>Thirty-Three Places</i></h1>
+    <div class="narrow" style="margin-top:36px">
+      <p class="lede" data-t="pl.lede">Painting made on site, in one hundred and thirty-three locations across Korea. Each work takes as its title the name of the place, or a single word that points to it. Every session is recorded from the first mark to the last.</p>
+      <p data-t="pl.p1">The places are not landmarks chosen for their beauty. They are where the country keeps its own memory: a sunrise peak, a dam, a temple at the end of a valley, a tower raised to people who did not come back, a street in Seoul where nobody stops walking.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="counts">
+      <div><span class="n" id="cTotal">133</span><span class="l" data-t="pl.c1">Locations in the project</span></div>
+      <div><span class="n" id="cVideo">133</span><span class="l" data-t="pl.c2">Recorded on video</span></div>
+      <div><span class="n" id="cMapped">—</span><span class="l" data-t="pl.c3">Mapped so far</span></div>
+    </div>
+    <div class="map-wrap">
+      <div id="map"></div>
+      <noscript><div class="map-fallback" data-t="pl.nojs">The map needs JavaScript. The list of locations follows below.</div></noscript>
+    </div>
+    <p class="muted" style="margin-top:16px;font-size:.82rem" data-t="pl.legend">Each point is a place where a painting was made on site. The map is filled in as coordinates are confirmed.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow" data-t="pl.list.eyebrow">Locations confirmed so far</p>
+    <ul class="place-list" id="placeList"></ul>
+  </div>
+</section>
+
+<section id="placeWorksSection">
+  <div class="wrap">
+    <p class="eyebrow" data-t="pl.works.eyebrow">Paintings from the project</p>
+    <div class="works wide" id="placeWorks"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> Kent Kim</span>
+    <span><a class="link" href="mailto:kentkim@gmail.com">kentkim@gmail.com</a></span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="places-data.js"></script>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+<script src="map.js"></script>
+</body>
+</html>
