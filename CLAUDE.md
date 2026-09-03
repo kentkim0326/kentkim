@@ -191,7 +191,9 @@ console.log('missing',[...k].filter(x=>!(x in KO)),'unused',Object.keys(KO).filt
 | 경로 | 내용 |
 |---|---|
 | `assets/works/hero.jpg` | **첫 화면을 가득 채우는 한 점.** 가로로 넉넉한 사진(2400px 이상)이 좋다 |
-| `assets/works/hero.mp4` | **첫 화면 영상(선택).** 파일을 올리면 사진 위에 자동으로 얹혀 무음 반복 재생된다. 없으면 사진이 그대로 남는다 |
+| `assets/works/hero.mp4` | **index 첫 화면 영상.** 파일을 올리면 사진 위에 자동으로 얹혀 무음 반복 재생된다. 없으면 사진이 그대로 남는다 |
+| `assets/works/buddha.mp4` | **places(133 Places) 첫 화면 영상** |
+| `assets/works/peak.mp4` | **performance(라이브 페인팅 제안) 첫 화면 영상** |
 | `assets/works/work-01…06.jpg` | 작품 그리드 6점 |
 | `places-data.js` 의 `img` | 133 Places 개별 작품 사진 |
 
@@ -222,6 +224,19 @@ console.log('missing',[...k].filter(x=>!(x in KO)),'unused',Object.keys(KO).filt
 ```bash
 avconvert --preset Preset640x480 --source 원본.mov --output hero-mobile.mp4
 ```
+
+**네 페이지 중 셋이 영상으로 열린다**(2026-09-03, 대표님 결정):
+
+| 페이지 | 영상 | 사진(poster·폴백) |
+|---|---|---|
+| `index.html` | `assets/works/hero.mp4` | `assets/works/hero.jpg` |
+| `places.html` (133 Places) | `assets/works/buddha.mp4` | `assets/places/IMG_4814.jpg` |
+| `performance.html` (라이브 페인팅 제안) | `assets/works/peak.mp4` | `assets/places/IMG_2462.jpg` |
+| `about.html` | **없음 — 사진만** | `assets/studio/show-02.jpg` |
+
+**about 은 일부러 사진이다.** 넷 다 영상이면 무게가 없어진다.
+**영상 파일이 없으면 그 페이지는 조용히 사진만 남는다** — 그래서 파일이 오기 전에 속성을
+먼저 넣어 두어도 안전하다. `data-video` 한 줄만 바꾸면 페이지끼리 맞바꿀 수 있다.
 
 **히어로 사진이 없으면 `.no-image` 로 바뀌어 글씨만으로 선다** — 빈 회색 사각형을
 보이지 않는다. 그래서 사진이 오기 전에도 페이지가 부끄럽지 않다.
