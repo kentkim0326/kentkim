@@ -97,7 +97,13 @@ figcaption .m{color:var(--fg-3);font-size:.8rem}
 
 /* ---------- 지도 ---------- */
 .map-wrap{border:1px solid var(--line);background:var(--bg-2)}
-#map{height:min(72svh,660px);width:100%;filter:saturate(.55) contrast(1.05)}
+#map{height:min(72svh,660px);width:100%}
+/* OSM 표준 타일은 밝다. 타일만 반전시켜 어두운 지도로 만든다 —
+   마커·팝업까지 반전되면 색이 뒤집히므로 타일 레이어에만 건다. */
+.leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.72) contrast(.92) saturate(.5)}
+.leaflet-control-attribution{background:rgba(13,12,11,.75)!important;color:#8b857c!important}
+.leaflet-control-attribution a{color:#a9a29a!important}
+.leaflet-control-zoom a{background:#1a1815!important;color:#ece7dd!important;border-color:#2a2724!important}
 .map-fallback{padding:28px;color:var(--fg-2);font-size:.92rem}
 .counts{display:flex;flex-wrap:wrap;border:1px solid var(--line);margin:0 0 36px}
 .counts div{flex:1 1 170px;padding:24px 26px;border-inline-end:1px solid var(--line)}

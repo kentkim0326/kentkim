@@ -12,8 +12,10 @@
 
   var map = L.map(el, { scrollWheelZoom: false }).setView([36.5, 127.9], 7);
 
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-    attribution: "&copy; OpenStreetMap &copy; CARTO",
+  /* CARTO 는 2026 년부터 API 키를 요구한다 — 키 없이 쓰면 타일에 "API KEY REQUIRED" 가 박힌다.
+     키가 필요 없는 OSM 표준 타일을 쓰고, 어두운 사이트에 맞춰 CSS 로 반전시킨다(#map 의 filter). */
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors",
     maxZoom: 18
   }).addTo(map);
 

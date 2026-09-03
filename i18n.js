@@ -72,6 +72,11 @@ const KO = {
   "intro.link":"133 Places →",
   "works.eyebrow":"작품",
   "works.note":"캔버스에 아크릴, 33 × 42 cm 부터 100 × 100 cm 까지. 액자 없이 나무틀에 그대로. 캡션은 제목 · 재료 · 치수 · 연도 순으로 적는다.",
+  "studio.eyebrow":"작업실과 전시",
+  "studio.lede":"현장에서 그린 작업과 나란히, 작업실에서 그린 연작이 있다. 같은 선을 더 느리게 밀고, 금색과 은색에 자리를 더 준 그림들이다.",
+  "studio.p":"2023년 서울에서 개인전을 두 번 열었다 — 대치동, 그리고 가로수길 D:STA Gallery.",
+  "studio.cap1":"개인전 전시 전경, 서울, 2023",
+  "studio.cap2":"전시 전경, 가로수길 D:STA Gallery, 서울, 2023",
   "quote":"《133 Places》는 새로 시작한 일이 아니다. 같은 질문을 <span class=\"em\">삼십오 년 뒤에</span>, 133개 장소에서 다시 묻는 것이다.",
 
   /* ── 133 Places ── */
