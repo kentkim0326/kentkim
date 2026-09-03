@@ -90,13 +90,30 @@
   /* 히어로 영상 — 파일이 있으면 사진 위에 얹고, 없으면 사진이 그대로 남는다.
      · 소리 없이 자동재생하려면 muted + playsinline 이 반드시 있어야 한다(모바일 정책).
      · 사진을 poster 로 깔아 두어 영상이 뜨기 전에도 빈 화면이 보이지 않는다.
-     · 「동작 줄이기」를 켠 사용자에게는 영상을 넣지 않는다. */
+     · 「동작 줄이기」를 켠 사용자에게는 영상을 넣지 않는다.
+     · 모바일 화면(≤640px)이거나 느린 회선·데이터 절약 모드면 아예 받지 않는다 —
+       화질을 더 깎는 대신 첫 화면이 몇 초 비는 것 자체를 막는다. 사진은 그대로 남는다. */
+  function shouldSkipHeroVideo() {
+    try {
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return true;
+    } catch (e) {}
+    try {
+      if (window.matchMedia && window.matchMedia("(max-width: 640px)").matches) return true;
+    } catch (e) {}
+    try {
+      var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (conn) {
+        if (conn.saveData) return true;
+        if (conn.effectiveType && /2g|slow-2g|3g/.test(conn.effectiveType)) return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+
   function tryHeroVideo(plate, posterSrc) {
     var src = plate.getAttribute("data-video");
     if (!src) return;
-    try {
-      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    } catch (e) {}
+    if (shouldSkipHeroVideo()) return;
 
     var v = document.createElement("video");
     v.muted = true; v.defaultMuted = true;
