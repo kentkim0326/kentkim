@@ -10,14 +10,25 @@
   "use strict";
 
   var LS_KEY = "kentkim.lang";
-  var T = (typeof KO === "object" && KO) || {};
+  /* 언어 지도. 영어는 HTML 안에 원문이 있으므로 지도가 필요 없다.
+     지도에 키가 없으면 그 자리에 영어가 그대로 남는다 — 렌더가 깨지지 않는다. */
+  var MAPS = {
+    ko: (typeof KO === "object" && KO) || null,
+    zh: (typeof ZH === "object" && ZH) || null,
+    ja: (typeof JA === "object" && JA) || null
+  };
+  var LANGS = ["en", "ko", "zh", "ja"];
 
   function detect() {
     try {
       var saved = localStorage.getItem(LS_KEY);
-      if (saved === "ko" || saved === "en") return saved;
+      if (LANGS.indexOf(saved) >= 0) return saved;
     } catch (e) {}
-    return (navigator.language || "en").toLowerCase().indexOf("ko") === 0 ? "ko" : "en";
+    var n = (navigator.language || "en").toLowerCase();
+    if (n.indexOf("ko") === 0) return "ko";
+    if (n.indexOf("zh") === 0) return "zh";
+    if (n.indexOf("ja") === 0) return "ja";
+    return "en";
   }
 
   function apply(lang) {
@@ -25,7 +36,8 @@
     for (var i = 0; i < nodes.length; i++) {
       var el = nodes[i], key = el.getAttribute("data-t");
       if (el.dataset.en === undefined) el.dataset.en = el.innerHTML;
-      el.innerHTML = lang === "ko" && T[key] ? T[key] : el.dataset.en;
+      var map = MAPS[lang];
+      el.innerHTML = map && map[key] ? map[key] : el.dataset.en;
     }
     document.documentElement.lang = lang;
     var btns = document.querySelectorAll(".lang-toggle button");
