@@ -139,6 +139,32 @@ assets/         works/ places/ incoming/
 python3 -m http.server 5173
 ```
 
+### ⚠️ 함정 — 「`main` 에 올렸는데 사이트에 안 나온다」 (2026-09-03)
+
+**Vercel 이 배포하는 브랜치를 먼저 확인한다.** 이 프로젝트는 처음 Import 될 때
+GitHub 기본 브랜치가 `claude/art-portfolio-site-mi0oj9` 였던 탓에, Vercel 의
+**Production Branch 가 그 브랜치로 잡혀 있었다.** `main` 에 아무리 푸시해도
+사이트에는 반영되지 않았고, `hero.mp4` 가 **404** 로 떴다 — 파일은 `main` 에만
+있었기 때문이다. 원인을 찾는 데 세션 하나를 다 썼다.
+
+- **증상이 이러면 이 함정이다**: 커밋·푸시는 분명히 됐는데 사이트가 옛날 그대로,
+  또는 새로 올린 파일만 404. Vercel 배포 목록에 뜬 **커밋 메시지가 내가 방금
+  올린 것이 아닌지** 본다 — 그게 곧 배포 중인 브랜치다.
+- **확인**: `git remote show origin` 의 `HEAD branch`(=GitHub 기본 브랜치) 와
+  Vercel **Settings → Environments → Production → Branch Tracking** 을 맞춰 본다.
+  (구 UI 는 Settings → Git 에 Production Branch 가 있었으나 **신규 UI 는
+  Environments 로 옮겼다** — Git 페이지를 아무리 뒤져도 없다.)
+- **지금 상태**: GitHub 기본 브랜치는 `main` 으로 고쳤다. Vercel Production Branch 도
+  `main` 으로 맞춘다. **옛 브랜치는 Vercel 설정을 바꾸고 배포를 확인한 뒤에 지운다** —
+  먼저 지우면 프로덕션 공급원이 사라진다.
+
+### ⚠️ 히어로 영상은 DOM 에 먼저 붙인다
+
+`tryHeroVideo()` 는 `<video>` 를 **만들자마자 `plate` 에 붙이고** 그 다음에 `src` 를 준다.
+떼어 놓은 채로 `src` 만 넣고 `loadeddata` 를 기다리면 **사파리에서 로드가 시작되지 않아
+영상이 영영 붙지 않는다.** `poster` 가 뒤에 깔린 사진과 같은 그림이라 먼저 붙여 두어도
+재생 전에는 티가 나지 않는다. **이 순서를 되돌리지 말 것.**
+
 ### 영어가 HTML 안에 있다
 
 **영문이 HTML 에 그대로 있고 `i18n.js` 는 한국어 대체 문장만 갖는다.**
