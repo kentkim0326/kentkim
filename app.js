@@ -91,14 +91,13 @@
      · 소리 없이 자동재생하려면 muted + playsinline 이 반드시 있어야 한다(모바일 정책).
      · 사진을 poster 로 깔아 두어 영상이 뜨기 전에도 빈 화면이 보이지 않는다.
      · 「동작 줄이기」를 켠 사용자에게는 영상을 넣지 않는다.
-     · 모바일 화면(≤640px)이거나 느린 회선·데이터 절약 모드면 아예 받지 않는다 —
-       화질을 더 깎는 대신 첫 화면이 몇 초 비는 것 자체를 막는다. 사진은 그대로 남는다. */
+     · 데이터 절약 모드·2G/3G 는 받지 않는다. 화면 크기로는 막지 않는다 —
+       모바일에서도 영상을 보여 준다(대표님 결정, 2026-09-03).
+     ※ 사파리는 Network Information API 가 없어 셀룰러인지 알 수 없다. 그래서
+       모바일 데이터 절약은 「가벼운 파일을 따로 주는」 쪽으로 푼다(data-video-mobile). */
   function shouldSkipHeroVideo() {
     try {
       if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return true;
-    } catch (e) {}
-    try {
-      if (window.matchMedia && window.matchMedia("(max-width: 640px)").matches) return true;
     } catch (e) {}
     try {
       var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
@@ -110,8 +109,20 @@
     return false;
   }
 
+  /* 좁은 화면에서는 가벼운 파일이 있으면 그것을 쓴다.
+     data-video-mobile 이 없으면 그냥 원본을 쓴다 — 파일을 올리기 전에도 동작한다. */
+  function heroVideoSrc(plate) {
+    var small = plate.getAttribute("data-video-mobile");
+    if (small) {
+      try {
+        if (window.matchMedia && window.matchMedia("(max-width: 640px)").matches) return small;
+      } catch (e) {}
+    }
+    return plate.getAttribute("data-video");
+  }
+
   function tryHeroVideo(plate, posterSrc) {
-    var src = plate.getAttribute("data-video");
+    var src = heroVideoSrc(plate);
     if (!src) return;
     if (shouldSkipHeroVideo()) return;
 
@@ -126,13 +137,14 @@
     /* DOM 에 먼저 붙인다 — 떼어 놓은 <video> 는 사파리에서 로드가 시작되지 않는 일이 있다.
        poster 가 뒤에 깔린 사진과 같은 그림이라, 붙여 두어도 재생 전에는 티가 나지 않는다. */
     plate.appendChild(v);
-
-    v.addEventListener("loadeddata", function () {
-      var pr = v.play();
-      if (pr && pr.catch) pr.catch(function () { v.remove(); });   /* 자동재생이 막히면 사진으로 남는다 */
-    });
-    v.addEventListener("error", function () { v.remove(); });
     v.src = src;
+
+    /* loadeddata 를 기다리지 않고 바로 play() 한다 — iOS 사파리는 preload="auto" 를
+       무시하고 재생을 시도할 때까지 받지 않는다. 기다리면 그 이벤트가 영영 안 온다.
+       버퍼링 동안에는 뒤에 깔린 사진이 그대로 보인다. */
+    var pr = v.play();
+    if (pr && pr.catch) pr.catch(function () { v.remove(); });   /* 자동재생이 막히면 사진으로 남는다 */
+    v.addEventListener("error", function () { v.remove(); });
   }
 
   /* 133 Places — 장소별로 묶어서 그린다. 「133」은 장소가 아니라 그림 수다. */
