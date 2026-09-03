@@ -130,7 +130,7 @@
       for (var i = 0; i < PLACES.length; i++) {
         var pl = PLACES[i];
         var mine = WORKS.filter(function (w) { return w.place === pl.id; })
-                        .sort(function (a, b) { return a.n - b.n; });
+                        .sort(function (a, b) { return (a.n || 0) - (b.n || 0); });
         if (!mine.length) continue;
 
         html += '<section class="place-group">';
@@ -143,7 +143,9 @@
             ? '<span class="w-word">' + esc(w.word) + "</span>" +
               (w.en ? '<span class="w-en">' + esc(w.en) + "</span>" : "")
             : '<span class="w-word w-none">' + (lang === "ko" ? "낱말 확인 중" : "word to be confirmed") + "</span>";
-          html += '<li><span class="w-n">' + w.n + "</span>" +
+          /* 번호를 아직 모르는 줄은 그린 날짜로 대신한다 — 목록을 받으면 번호로 바뀐다 */
+          var mark = w.n ? String(w.n) : (w.date || "").slice(5).replace("-", ".");
+          html += '<li><span class="w-n">' + mark + "</span>" +
                   (w.video
                     ? '<a href="' + esc(w.video) + '" target="_blank" rel="noopener">' + label + '<span class="w-play">film</span></a>'
                     : label) +

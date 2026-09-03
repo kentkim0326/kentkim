@@ -22,7 +22,7 @@
   var bounds = [];
   PLACES.forEach(function (p) {
     var mine = WORKS.filter(function (w) { return w.place === p.id; })
-                    .sort(function (a, b) { return a.n - b.n; });
+                    .sort(function (a, b) { return (a.n || 0) - (b.n || 0); });
 
     /* 점 크기가 그 자리에서 그린 그림 수를 말한다 */
     var r = 6 + Math.min(mine.length, 6) * 1.6;
@@ -34,7 +34,7 @@
     if (mine.length) {
       body += "<ul style='margin:8px 0 0;padding-inline-start:16px'>";
       mine.forEach(function (w) {
-        var t = w.word || "—";
+        var t = w.word || (w.date ? w.date : "—");
         body += "<li>" + (w.video ? "<a href='" + w.video + "' target='_blank' rel='noopener'>" + t + "</a>" : t) +
                 (w.en ? " <span style='color:#6f6961'>" + w.en + "</span>" : "") + "</li>";
       });

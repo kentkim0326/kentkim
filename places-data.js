@@ -27,6 +27,18 @@
 const WORKS_TOTAL = 133;   // 프로젝트 전체 그림 수 (2023-09 ~ 2024)
 
 const PLACES = [
+  { id:"ddp",             en:"Dongdaemun Design Plaza, Seoul",      ko:"서울 동대문디자인플라자(DDP)", lat:37.5665, lng:127.0092 },
+  { id:"jamsil",          en:"Olympic Park, Jamsil, Seoul",         ko:"서울 잠실 올림픽",          lat:37.5159, lng:127.0728 },
+  { id:"starfield",       en:"Starfield Library, COEX, Seoul",      ko:"서울 코엑스 별마당도서관",   lat:37.5100, lng:127.0600 },
+  { id:"myeongdong",      en:"Myeong-dong, Seoul",                  ko:"서울 명동",                lat:37.5636, lng:126.9827 },
+  { id:"coex",            en:"COEX, Seoul",                         ko:"서울 코엑스",              lat:37.5115, lng:127.0595 },
+  { id:"bongeunsa",       en:"Bongeunsa Temple, Seoul",             ko:"서울 봉은사",              lat:37.5150, lng:127.0577 },
+  { id:"cheonan",         en:"Cheonan",                             ko:"천안",                    lat:36.8151, lng:127.1139 },
+  { id:"kintex",          en:"KINTEX, Ilsan",                       ko:"일산 킨텍스",              lat:37.6663, lng:126.7452 },
+  { id:"gwangju-kdj",     en:"Kim Dae-jung Convention Center, Gwangju", ko:"광주 김대중컨벤션센터", lat:35.1420, lng:126.8390 },
+  { id:"mudeungsan",      en:"Mudeungsan, Gwangju",                 ko:"광주 무등산",              lat:35.1340, lng:126.9886 },
+  { id:"gwangju-univ",    en:"Gwangju University",                  ko:"광주대학교",               lat:35.1090, lng:126.8760 },
+  { id:"gwangju-cityhall",en:"Gwangju City Hall",                   ko:"광주시청",                 lat:35.1600, lng:126.8514 },
   { id:"garosugil",       en:"Garosu-gil, Seoul",                  ko:"서울 가로수길",            lat:37.5209, lng:127.0230 },
   { id:"homigot",         en:"Homigot, Pohang",                    ko:"포항 호미곶",              lat:36.0764, lng:129.5686 },
   { id:"pohang-cityhall", en:"Pohang City Hall",                   ko:"포항시청",                 lat:36.0190, lng:129.3435 },
@@ -44,6 +56,21 @@ const PLACES = [
 ];
 
 const WORKS = [
+  /* ── 2023년 9월 드로잉쇼 — 대표님 일정표에서 장소와 날짜만 확인된 것들.
+        그림 번호와 화폭의 낱말은 아직 모른다. 목록을 받으면 채운다. ── */
+  { n:null, date:"2023-08-31", place:"ddp",              word:"", en:"", video:"", img:"" },
+  { n:null, date:"2023-09-01", place:"jamsil",           word:"", en:"", video:"", img:"" },
+  { n:null, date:"2023-09-02", place:"starfield",        word:"", en:"", video:"", img:"assets/places/6A16DF87-C3CE-4BCA-B6BE-98F68CD8B7BD.jpg" },
+  { n:null, date:"2023-09-05", place:"myeongdong",       word:"", en:"", video:"", img:"assets/places/IMG_2462.jpg" },
+  { n:null, date:"2023-09-06", place:"coex",             word:"", en:"", video:"", img:"assets/places/IMG_2561.jpg" },
+  { n:null, date:"2023-09-06", place:"bongeunsa",        word:"", en:"", video:"", img:"" },
+  { n:null, date:"2023-09-09", place:"cheonan",          word:"", en:"", video:"", img:"" },
+  { n:null, date:"2023-09-15", place:"kintex",           word:"", en:"", video:"", img:"" },
+  { n:null, date:"2023-09-16", place:"gwangju-kdj",      word:"", en:"", video:"", img:"" },
+  { n:null, date:"2023-09-17", place:"mudeungsan",       word:"", en:"", video:"", img:"" },
+  { n:null, date:"2023-09-17", place:"gwangju-univ",     word:"", en:"", video:"", img:"" },
+  { n:null, date:"2023-09-17", place:"gwangju-cityhall", word:"", en:"", video:"", img:"" },
+
   { n:133, place:"garosugil",       word:"위대할 태",  en:"",                        video:"https://youtube.com/shorts/TLo_FeH5JXU", img:"" },
   { n:132, place:"garosugil",       word:"밀리버스",   en:"Miliverse",               video:"https://youtube.com/shorts/dg9evF40KuI", img:"" },
   { n:131, place:"garosugil",       word:"EMC",        en:"",                        video:"https://youtube.com/shorts/jVfudFQvc7I", img:"" },
