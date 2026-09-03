@@ -204,10 +204,12 @@ html[lang="ko"] body{word-break:keep-all}
 .page-hero .lede,.page-hero p{text-shadow:0 1px 18px rgba(0,0,0,.85)}
 .page-hero .wrap{padding-top:clamp(90px,14vh,150px)}
 
-/* 본문 사이에 끼우는 가로 밴드 — 글이 길어지는 자리를 그림으로 끊는다 */
+/* 본문 사이에 끼우는 가로 밴드 — 글이 길어지는 자리를 그림으로 끊는다.
+   ⚠️ 21/9 + object-fit:cover 로 두었더니 세로가 있는 사진에서 **그림이 반으로 잘려**
+   나왔다(2026-09-03). 작품 사진을 자르면 안 된다 — 원본 비율 그대로 보여 준다.
+   너무 커지지 않게 높이만 화면 기준으로 묶는다. */
 .band{position:relative;margin:clamp(40px,6vw,84px) 0;overflow:hidden;
   border-radius:2px;background:var(--bg-2)}
-.band .frame{aspect-ratio:21/9}
-.band .frame img{width:100%;height:100%;object-fit:cover;display:block}
+.band .frame{aspect-ratio:auto;border:0;background:transparent}
+.band .frame img{width:100%;height:auto;max-height:78svh;object-fit:contain;display:block}
 .band figcaption{margin-top:12px;font-size:.78rem;letter-spacing:.06em;color:var(--fg-3)}
-@media (max-width:640px){ .band .frame{aspect-ratio:3/2} }
