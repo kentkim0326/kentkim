@@ -73,6 +73,7 @@
           if (!isHero) img.loading = "lazy";
           img.alt = plate.getAttribute("data-alt") || "";
           plate.appendChild(img);
+          if (isHero) tryHeroVideo(plate, src);
         };
         probe.onerror = function () {
           if (isHero) {
@@ -84,6 +85,34 @@
         probe.src = src;
       })(plates[i]);
     }
+  }
+
+  /* 히어로 영상 — 파일이 있으면 사진 위에 얹고, 없으면 사진이 그대로 남는다.
+     · 소리 없이 자동재생하려면 muted + playsinline 이 반드시 있어야 한다(모바일 정책).
+     · 사진을 poster 로 깔아 두어 영상이 뜨기 전에도 빈 화면이 보이지 않는다.
+     · 「동작 줄이기」를 켠 사용자에게는 영상을 넣지 않는다. */
+  function tryHeroVideo(plate, posterSrc) {
+    var src = plate.getAttribute("data-video");
+    if (!src) return;
+    try {
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    } catch (e) {}
+
+    var v = document.createElement("video");
+    v.muted = true; v.defaultMuted = true;
+    v.autoplay = true; v.loop = true; v.playsInline = true;
+    v.setAttribute("muted", ""); v.setAttribute("playsinline", "");
+    v.preload = "auto";
+    v.poster = posterSrc;
+    v.className = "hero-video";
+
+    v.addEventListener("loadeddata", function () {
+      plate.appendChild(v);
+      var pr = v.play();
+      if (pr && pr.catch) pr.catch(function () { v.remove(); });   /* 자동재생이 막히면 사진으로 남는다 */
+    });
+    v.addEventListener("error", function () { v.remove(); });
+    v.src = src;
   }
 
   /* 133 Places — 장소별로 묶어서 그린다. 「133」은 장소가 아니라 그림 수다. */

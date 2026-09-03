@@ -190,3 +190,6 @@ html[lang="ko"] body{word-break:keep-all}
 @media (max-width:640px){
   .hero .cap{position:static;text-align:start;padding:0 28px;margin-top:18px}
 }
+
+/* 히어로 영상 — 사진 위에 겹쳐 깔린다. 파일이 없으면 이 요소 자체가 생기지 않는다. */
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92}
