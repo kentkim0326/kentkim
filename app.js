@@ -123,8 +123,11 @@
     v.poster = posterSrc;
     v.className = "hero-video";
 
+    /* DOM 에 먼저 붙인다 — 떼어 놓은 <video> 는 사파리에서 로드가 시작되지 않는 일이 있다.
+       poster 가 뒤에 깔린 사진과 같은 그림이라, 붙여 두어도 재생 전에는 티가 나지 않는다. */
+    plate.appendChild(v);
+
     v.addEventListener("loadeddata", function () {
-      plate.appendChild(v);
       var pr = v.play();
       if (pr && pr.catch) pr.catch(function () { v.remove(); });   /* 자동재생이 막히면 사진으로 남는다 */
     });
