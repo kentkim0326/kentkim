@@ -72,8 +72,8 @@ section{padding:clamp(64px,10vw,140px) 0}
 .rule{height:1px;background:var(--line);border:0;margin:0}
 
 /* ---------- 작품 ---------- */
-.works{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:clamp(20px,3vw,44px)}
-.works.wide{grid-template-columns:repeat(auto-fill,minmax(440px,1fr))}
+.works{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:clamp(20px,3vw,44px)}
+.works.wide{grid-template-columns:repeat(auto-fill,minmax(min(440px,100%),1fr))}
 figure{margin:0}
 .frame{background:var(--bg-2);border:1px solid var(--line);aspect-ratio:4/5;
   display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -106,12 +106,12 @@ figcaption .m{color:var(--fg-3);font-size:.8rem}
 .leaflet-control-zoom a{background:#1a1815!important;color:#ece7dd!important;border-color:#2a2724!important}
 .map-fallback{padding:28px;color:var(--fg-2);font-size:.92rem}
 .counts{display:flex;flex-wrap:wrap;border:1px solid var(--line);margin:0 0 36px}
-.counts div{flex:1 1 170px;padding:24px 26px;border-inline-end:1px solid var(--line)}
+.counts div{flex:1 1 min(170px,100%);padding:24px 26px;border-inline-end:1px solid var(--line)}
 .counts div:last-child{border-inline-end:0}
 .counts .n{font-family:var(--serif);font-size:2.4rem;line-height:1;display:block;color:var(--gold)}
 .counts .l{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);margin-top:10px;display:block}
 /* 장소별 묶음 — 「133」은 장소가 아니라 그림 수라서 두 층으로 보인다 */
-.place-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
+.place-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(330px,100%),1fr));
   gap:8px 56px;align-items:start}
 .place-group{margin:0 0 30px;padding:0}   /* 전역 section 여백을 지운다 — 이게 없으면 위아래 140px 씩 벌어진다 */
 .pg-name{font-size:1.15rem;color:var(--fg);padding-bottom:8px;border-bottom:1px solid var(--line)}
@@ -150,8 +150,9 @@ figcaption .m{color:var(--fg-3);font-size:.8rem}
 
 
 @media (max-width:640px){
-  .site-head .wrap{gap:14px;min-height:60px}
-  .site-nav{gap:16px}
+  .site-head .wrap{gap:10px;min-height:60px;flex-wrap:wrap;padding-block:10px}
+  .site-nav{gap:14px;flex-wrap:wrap;margin-inline-start:0;order:3;width:100%}
+  .site-nav a{font-size:.68rem;letter-spacing:.12em}
   .place-list{grid-template-columns:1fr}
   .cv li{grid-template-columns:82px 1fr;gap:14px}
 }
@@ -171,12 +172,21 @@ html[lang="ko"] body{word-break:keep-all}
 .leaflet-container a.leaflet-popup-close-button{color:#6f6961}
 
 /* ---------- 제안 페이지: 카드 ---------- */
-.grid-3-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;
+.grid-3-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:1px;
   background:var(--line);border:1px solid var(--line);margin-top:34px}
-.grid-2-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+.grid-2-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
   gap:clamp(34px,5vw,72px);align-items:start}
 .card{background:var(--bg);padding:clamp(26px,3vw,38px)}
 .card-n{font-family:var(--serif);font-size:.9rem;color:var(--gold);letter-spacing:.1em;
   display:block;margin-bottom:14px}
 .card h3{margin-bottom:12px}
 .card p{color:var(--fg-2);font-size:.92rem;margin:0}
+
+/* 히어로 캡션 — 첫 화면의 그림이 무엇이고 어디서 그렸는지, 그리고 그 영상으로 바로 간다 */
+.hero .cap{line-height:1.7;text-shadow:0 1px 12px rgba(0,0,0,.9)}
+.hero .cap-link{color:var(--gold);text-decoration:none;border-bottom:1px solid currentColor;
+  font-size:.74rem;letter-spacing:.08em}
+.hero .cap-link:hover{color:#e0c384}
+@media (max-width:640px){
+  .hero .cap{position:static;text-align:start;padding:0 28px;margin-top:18px}
+}
