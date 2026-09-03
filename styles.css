@@ -107,7 +107,7 @@ figcaption .m{color:var(--fg-3);font-size:.8rem}
 /* 장소별 묶음 — 「133」은 장소가 아니라 그림 수라서 두 층으로 보인다 */
 .place-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
   gap:8px 56px;align-items:start}
-.place-group{margin:0 0 30px}
+.place-group{margin:0 0 30px;padding:0}   /* 전역 section 여백을 지운다 — 이게 없으면 위아래 140px 씩 벌어진다 */
 .pg-name{font-size:1.15rem;color:var(--fg);padding-bottom:8px;border-bottom:1px solid var(--line)}
 .pg-name .pg-alt{display:block;font-family:var(--sans);font-size:.76rem;letter-spacing:.08em;
   color:var(--fg-3);margin-top:5px}
