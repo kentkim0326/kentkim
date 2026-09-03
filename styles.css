@@ -212,4 +212,7 @@ html[lang="ko"] body{word-break:keep-all}
   border-radius:2px;background:var(--bg-2)}
 .band .frame{aspect-ratio:auto;border:0;background:transparent}
 .band .frame img{width:100%;height:auto;max-height:78svh;object-fit:contain;display:block}
+/* 유튜브 임베드 — 16:9 로 고정한다. 추적 쿠키를 덜 심는 nocookie 도메인을 쓴다. */
+.video-embed{position:relative;aspect-ratio:16/9;background:#000;border-radius:2px;overflow:hidden}
+.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 .band figcaption{margin-top:12px;font-size:.78rem;letter-spacing:.06em;color:var(--fg-3)}
