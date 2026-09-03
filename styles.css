@@ -100,11 +100,29 @@ figcaption .m{color:var(--fg-3);font-size:.8rem}
 .counts div:last-child{border-inline-end:0}
 .counts .n{font-family:var(--serif);font-size:2.4rem;line-height:1;display:block;color:var(--gold)}
 .counts .l{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);margin-top:10px;display:block}
-.place-list{list-style:none;margin:0;padding:0;columns:3;column-gap:44px}
-.place-list li{break-inside:avoid;padding:10px 0;border-bottom:1px solid var(--line);font-size:.95rem}
-.place-list a{text-decoration:none}
-.place-list a:hover{color:var(--gold)}
-.place-list .kr{color:var(--fg-3);font-size:.84rem;margin-inline-start:8px}
+/* 장소별 묶음 — 「133」은 장소가 아니라 그림 수라서 두 층으로 보인다 */
+.place-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
+  gap:8px 56px;align-items:start}
+.place-group{margin:0 0 30px}
+.pg-name{font-size:1.15rem;color:var(--fg);padding-bottom:8px;border-bottom:1px solid var(--line)}
+.pg-name .pg-alt{display:block;font-family:var(--sans);font-size:.76rem;letter-spacing:.08em;
+  color:var(--fg-3);margin-top:5px}
+.pg-works{list-style:none;margin:0;padding:0}
+.pg-works li{border-bottom:1px solid var(--line)}
+.pg-works a,.pg-works li>.w-word{display:flex;align-items:baseline;gap:10px;
+  padding:9px 0;text-decoration:none}
+.pg-works a:hover .w-word{color:var(--gold)}
+.pg-works a:hover .w-play{opacity:1}
+.w-n{flex:0 0 34px;font-size:.72rem;color:var(--fg-3);font-variant-numeric:tabular-nums;padding:9px 0}
+.pg-works a{padding-inline-start:0}
+.pg-works a .w-n{display:none}
+.pg-works li{display:flex;align-items:baseline;gap:10px}
+.pg-works li>a{flex:1 1 auto}
+.w-word{font-family:var(--serif);font-size:1.12rem;color:var(--fg)}
+.w-word.w-none{color:var(--fg-3);font-family:var(--sans);font-size:.86rem}
+.w-en{color:var(--fg-3);font-size:.82rem}
+.w-play{margin-inline-start:auto;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);opacity:.55}
 
 /* ---------- 이력 ---------- */
 .cv{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
@@ -120,11 +138,11 @@ figcaption .m{color:var(--fg-3);font-size:.8rem}
 .site-foot{border-top:1px solid var(--line);padding:48px 0;font-size:.84rem;color:var(--fg-3)}
 .site-foot .wrap{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between;align-items:baseline}
 
-@media (max-width:900px){ .place-list{columns:2} }
+
 @media (max-width:640px){
   .site-head .wrap{gap:14px;min-height:60px}
   .site-nav{gap:16px}
-  .place-list{columns:1}
+  .place-list{grid-template-columns:1fr}
   .cv li{grid-template-columns:82px 1fr;gap:14px}
 }
 

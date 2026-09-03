@@ -1,37 +1,79 @@
-/* 133 Places — 장소·그린 낱말·좌표.
-   여기 한 곳만 고치면 지도·목록·집계가 전부 따라온다(app.js 가 세어 쓴다).
+/* 133 Places — 그림 133점과 그 그림을 그린 장소.
 
-   한 줄 형식:
-     { en:"Roman name", ko:"한글 이름",
-       word:"그 자리에서 그린 낱말(영문)",  wordKo:"그 낱말의 한글",
-       lat:00.0000, lng:000.0000,
-       video:"https://youtu.be/...",        // 없으면 빈 문자열
-       img:"assets/places/파일명.jpg" }     // 없으면 빈 문자열 → 사진 자리는 조용히 비워둔다
+   ★ 구조가 두 층이다. 「133」은 장소 수가 아니라 **그림 수**다.
+     한 장소에서 여러 점을 그렸다 (가로수길 5점 · 호미곶 5점 …).
+     그래서 WORKS(그림) 가 PLACES(장소) 를 id 로 가리킨다.
 
-   ⚠ 낱말(word)의 출처는 「KENT KIM — ARTIST MATERIALS (EN)」(2026-08-20) 이다.
-     그 문서에 적힌 것만 넣었다. **없는 것은 비워 둔다 — 지어내지 않는다.**
-     · 원문의 「Gyeongpodae, Sokcho, Donghae, Samcheok, Pohang City Hall — Steel」 은
-       Steel 이 다섯 곳 전부인지 포항시청 하나인지 문장만으로는 갈린다.
-       포항(제철)에만 넣고 나머지 넷은 비워 뒀다. **대표님 확인 후 채운다.**
-   ⚠ wordKo 는 실제로 화폭에 쓴 한글을 모르므로 비워 뒀다. 번역해서 채우지 말 것 —
-     대표님이 그린 글자가 정답이다.
-   ⚠ 좌표는 지명 기준 근사값이다. 실제 작업 지점으로 바꾸면 그만큼 정확해진다.
-   ⚠ 133 중 아래 목록에 있는 것만 지도에 뜬다. 나머지는 추가되는 대로 여기에 넣는다. */
+   WORKS 한 줄:
+     { n:133,                 // 몇 번째 그림인가 (대표님 목록의 번호 그대로)
+       place:"garosugil",     // 아래 PLACES 의 id
+       word:"위대할 태",       // 화폭에 쓴 말 — **대표님이 적어 준 그대로. 고치지 않는다**
+       en:"",                 // 영어 독자를 위한 뜻풀이. 확실한 것만 채운다. 모르면 빈칸
+       video:"https://…",     // 유튜브
+       img:"" }               // 작품 사진 (assets/places/…). 없으면 빈칸 → 조용히 비워둔다
 
-const PLACES_TOTAL = 133;      // 완성한 그림 수 (2023-09 ~ 2024)
-const VIDEOS_TOTAL = 133;      // 영상 기록 편수
+   PLACES 한 줄:
+     { id, en, ko, lat, lng } // 좌표는 지명 기준 근사값
+
+   ⚠ en(뜻풀이) 중 다음은 「ARTIST MATERIALS (EN)」 문서에서 확인된 것이다:
+     개벽=Beginning of the World · 자유=Freedom · 정기=Spirit · 설악=Seorak ·
+     춘천=Chuncheon · 풍요=Abundance · 일출=Sunrise · 항해=Voyage
+   ⚠ 다음 넷은 **제가 넣지 않았다 — 대표님 확인 필요**:
+     「위대할 태」(한자 太의 새김) · 「철 (한자)」 · 「산」 · 「석가모니」.
+     지명(호미곶·속초·동해…)은 로마자 표기라 그대로 뒀다.
+   ⚠ 119번 줄은 원문이 「119번째 그림: 삼척」 한 토막이라 **낱말을 비워 뒀다.**
+     장소만 삼척인지, 「삼척」을 쓴 것인지 확인되면 채운다. 추측해서 넣지 않는다. */
+
+const WORKS_TOTAL = 133;   // 프로젝트 전체 그림 수 (2023-09 ~ 2024)
 
 const PLACES = [
-  { en:"Seongsan Ilchulbong",      ko:"성산일출봉",        word:"Sunrise · Voyage · Start", wordKo:"", lat:33.4580, lng:126.9425, video:"", img:"" },
-  { en:"Baekdamsa",                ko:"백담사",            word:"Seorak · Spirit",          wordKo:"", lat:38.1697, lng:128.3606, video:"", img:"" },
-  { en:"Gwongeumseong",            ko:"권금성",            word:"Peak",                     wordKo:"", lat:38.1770, lng:128.4600, video:"", img:"" },
-  { en:"Soyang River Dam",         ko:"소양강댐",          word:"Chuncheon · Abundance",    wordKo:"", lat:37.9469, lng:127.8125, video:"", img:"" },
-  { en:"Homigot",                  ko:"호미곶",            word:"Ocean · Sea · Beginning of the World", wordKo:"", lat:36.0764, lng:129.5686, video:"", img:"" },
-  { en:"Uljin — Tower for the Defence of Freedom", ko:"울진 자유수호의 탑", word:"Freedom", wordKo:"", lat:36.9930, lng:129.4000, video:"", img:"" },
-  { en:"Gyeongpodae",              ko:"경포대",            word:"",                         wordKo:"", lat:37.7955, lng:128.8964, video:"", img:"" },
-  { en:"Sokcho",                   ko:"속초",              word:"",                         wordKo:"", lat:38.2070, lng:128.5918, video:"", img:"" },
-  { en:"Donghae",                  ko:"동해",              word:"",                         wordKo:"", lat:37.5247, lng:129.1143, video:"", img:"" },
-  { en:"Samcheok",                 ko:"삼척",              word:"",                         wordKo:"", lat:37.4500, lng:129.1650, video:"", img:"" },
-  { en:"Pohang City Hall",         ko:"포항시청",          word:"Steel",                    wordKo:"", lat:36.0190, lng:129.3435, video:"", img:"" },
-  { en:"Garosu-gil, Seoul",        ko:"가로수길",          word:"",                         wordKo:"", lat:37.5209, lng:127.0230, video:"", img:"" }
+  { id:"garosugil",       en:"Garosu-gil, Seoul",                  ko:"서울 가로수길",            lat:37.5209, lng:127.0230 },
+  { id:"homigot",         en:"Homigot, Pohang",                    ko:"포항 호미곶",              lat:36.0764, lng:129.5686 },
+  { id:"pohang-cityhall", en:"Pohang City Hall",                   ko:"포항시청",                 lat:36.0190, lng:129.3435 },
+  { id:"uljin-tower",     en:"Tower for the Defence of Freedom, Uljin", ko:"울진 자유수호의 탑",  lat:36.9930, lng:129.4000 },
+  { id:"samcheok",        en:"Samcheok",                           ko:"삼척",                     lat:37.4500, lng:129.1650 },
+  { id:"donghae",         en:"Donghae",                            ko:"동해",                     lat:37.5247, lng:129.1143 },
+  { id:"gyeongpodae",     en:"Gyeongpodae, Gangneung",             ko:"강릉 경포대",              lat:37.7955, lng:128.8964 },
+  { id:"gwongeumseong",   en:"Gwongeumseong, Outer Seoraksan",     ko:"설악산 외설악 권금성",     lat:38.1770, lng:128.4600 },
+  { id:"seorak-entrance", en:"Outer Seoraksan, the approach",      ko:"설악산 외설악 초입",       lat:38.1900, lng:128.4650 },
+  { id:"sokcho-port",     en:"Sokcho Port",                        ko:"강원도 속초항",            lat:38.2070, lng:128.5918 },
+  { id:"baekdamsa",       en:"Baekdamsa, Inner Seoraksan",         ko:"설악산 내설악 백담사",     lat:38.1697, lng:128.3606 },
+  { id:"hwajinpo",        en:"Hwajinpo, Goseong",                  ko:"강원도 고성 화진포",       lat:38.4560, lng:128.4470 },
+  { id:"soyang-dam",      en:"Soyang River Dam, Chuncheon",        ko:"강원도 춘천 소양강댐",     lat:37.9469, lng:127.8125 },
+  { id:"seongsan",        en:"Seongsan Ilchulbong, Jeju",          ko:"제주 성산일출봉",          lat:33.4580, lng:126.9425 }
+];
+
+const WORKS = [
+  { n:133, place:"garosugil",       word:"위대할 태",  en:"",                        video:"https://youtube.com/shorts/TLo_FeH5JXU", img:"" },
+  { n:132, place:"garosugil",       word:"밀리버스",   en:"Miliverse",               video:"https://youtube.com/shorts/dg9evF40KuI", img:"" },
+  { n:131, place:"garosugil",       word:"EMC",        en:"",                        video:"https://youtube.com/shorts/jVfudFQvc7I", img:"" },
+  { n:130, place:"garosugil",       word:"가로수길",   en:"Garosu-gil",              video:"https://youtube.com/shorts/rHkxXkze6JM", img:"" },
+  { n:129, place:"garosugil",       word:"BM the Korea", en:"",                      video:"https://youtube.com/shorts/fdt54h_WiV0", img:"" },
+  { n:128, place:"homigot",         word:"Ocean",      en:"",                        video:"https://youtube.com/shorts/W_A_xp7d5lo", img:"" },
+  { n:127, place:"homigot",         word:"바다",       en:"Sea",                     video:"https://youtube.com/shorts/J7Qmd35hAyo", img:"" },
+  { n:126, place:"homigot",         word:"개벽",       en:"Beginning of the World",  video:"https://youtube.com/shorts/MdH7VnCY_Hc", img:"" },
+  { n:125, place:"homigot",         word:"East",       en:"",                        video:"https://youtube.com/shorts/ZKY-eN3j3Gc", img:"" },
+  { n:124, place:"homigot",         word:"호미곶",     en:"Homigot",                 video:"https://youtube.com/shorts/3MKwD16JXFY", img:"" },
+  { n:123, place:"pohang-cityhall", word:"철 (한자)",  en:"",                        video:"https://youtube.com/shorts/3zYHcH6zZgc", img:"" },
+  { n:122, place:"pohang-cityhall", word:"Pohang",     en:"",                        video:"https://youtube.com/shorts/cndSVfFTcZQ", img:"" },
+  { n:121, place:"pohang-cityhall", word:"Steel",      en:"",                        video:"https://youtube.com/shorts/-c7shK_K4pQ", img:"" },
+  { n:120, place:"uljin-tower",     word:"자유",       en:"Freedom",                 video:"https://youtube.com/shorts/9-kcVX8Spfc", img:"" },
+  { n:119, place:"samcheok",        word:"",           en:"",                        video:"https://youtube.com/shorts/NjEQzEJExMk", img:"" },
+  { n:118, place:"uljin-tower",     word:"자유",       en:"Freedom",                 video:"https://youtube.com/shorts/Mdk7LdZaCA8", img:"" },
+  { n:117, place:"donghae",         word:"동해",       en:"Donghae — the East Sea",  video:"https://youtube.com/shorts/UP3AFOiB9vc", img:"" },
+  { n:116, place:"gyeongpodae",     word:"경포대",     en:"Gyeongpodae",             video:"https://youtube.com/shorts/aPlSUiCu30M", img:"" },
+  { n:115, place:"gwongeumseong",   word:"Peak",       en:"",                        video:"https://youtube.com/shorts/WBgoisACCSo", img:"" },
+  { n:114, place:"gwongeumseong",   word:"권금성",     en:"Gwongeumseong",           video:"https://youtube.com/shorts/gofiL36XodE", img:"" },
+  { n:113, place:"seorak-entrance", word:"석가모니",   en:"",                        video:"https://youtube.com/shorts/8ykTz1gW7NE", img:"" },
+  { n:112, place:"seorak-entrance", word:"산",         en:"",                        video:"https://youtube.com/shorts/_8IcUP5RuXM", img:"" },
+  { n:111, place:"sokcho-port",     word:"속초",       en:"Sokcho",                  video:"https://youtube.com/shorts/21JRdMbIpdM", img:"" },
+  { n:110, place:"baekdamsa",       word:"정기",       en:"Spirit",                  video:"https://youtube.com/shorts/qF4Tsvyim-Q", img:"" },
+  { n:109, place:"baekdamsa",       word:"설악",       en:"Seorak",                  video:"https://youtube.com/shorts/DJ2QYL5maEs", img:"" },
+  { n:108, place:"hwajinpo",        word:"Eternity",   en:"",                        video:"https://youtube.com/shorts/E57gJ0JOR-E", img:"" },
+  { n:107, place:"soyang-dam",      word:"춘천",       en:"Chuncheon",               video:"https://youtube.com/shorts/zvgy_QGm1Qk", img:"" },
+  { n:106, place:"soyang-dam",      word:"소양강",     en:"Soyang River",            video:"https://youtube.com/shorts/ZAQA7_bxyrE", img:"" },
+  { n:105, place:"soyang-dam",      word:"풍요",       en:"Abundance",               video:"https://youtube.com/shorts/20AK3E2Gmss", img:"" },
+  { n:104, place:"seongsan",        word:"START",      en:"",                        video:"https://www.youtube.com/shorts/MtybGxmjbgo", img:"" },
+  { n:103, place:"seongsan",        word:"일출",       en:"Sunrise",                 video:"https://www.youtube.com/shorts/Y3HBT-iT3TU", img:"" },
+  { n:102, place:"seongsan",        word:"항해",       en:"Voyage",                  video:"https://www.youtube.com/shorts/JnzCh8C0K8U", img:"" }
 ];

@@ -74,43 +74,66 @@
     }
   }
 
-  /* 133 Places */
+  /* 133 Places — 장소별로 묶어서 그린다. 「133」은 장소가 아니라 그림 수다. */
+  function esc(t) {
+    return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
   function renderPlaces() {
-    if (typeof PLACES === "undefined") return;
+    if (typeof WORKS === "undefined" || typeof PLACES === "undefined") return;
     var lang = window.currentLang;
 
     var list = document.getElementById("placeList");
     if (list) {
       var html = "";
       for (var i = 0; i < PLACES.length; i++) {
-        var p = PLACES[i];
-        var line = (lang === "ko" ? p.ko : p.en) + '<span class="kr">' + (lang === "ko" ? p.en : p.ko) + "</span>";
-        if (p.word) line += '<span class="word">' + p.word + "</span>";
-        html += "<li>" + (p.video ? '<a href="' + p.video + '" target="_blank" rel="noopener">' + line + "</a>" : line) + "</li>";
+        var pl = PLACES[i];
+        var mine = WORKS.filter(function (w) { return w.place === pl.id; })
+                        .sort(function (a, b) { return a.n - b.n; });
+        if (!mine.length) continue;
+
+        html += '<section class="place-group">';
+        html += '<h3 class="pg-name">' + esc(lang === "ko" ? pl.ko : pl.en) +
+                '<span class="pg-alt">' + esc(lang === "ko" ? pl.en : pl.ko) + "</span></h3>";
+        html += '<ol class="pg-works">';
+        for (var j = 0; j < mine.length; j++) {
+          var w = mine[j];
+          var label = w.word
+            ? '<span class="w-word">' + esc(w.word) + "</span>" +
+              (w.en ? '<span class="w-en">' + esc(w.en) + "</span>" : "")
+            : '<span class="w-word w-none">' + (lang === "ko" ? "낱말 확인 중" : "word to be confirmed") + "</span>";
+          html += '<li><span class="w-n">' + w.n + "</span>" +
+                  (w.video
+                    ? '<a href="' + esc(w.video) + '" target="_blank" rel="noopener">' + label + '<span class="w-play">film</span></a>'
+                    : label) +
+                  "</li>";
+        }
+        html += "</ol></section>";
       }
       list.innerHTML = html;
     }
 
     var works = document.getElementById("placeWorks");
     if (works) {
-      var w = "";
-      for (var k = 0; k < PLACES.length; k++) {
-        var q = PLACES[k];
-        if (!q.img) continue;
-        w += '<figure><div class="frame landscape" data-img="' + q.img + '"></div>' +
-             '<figcaption><span class="t">' + (lang === "ko" ? q.ko : q.en) + "</span>" +
-             '<span class="m">' + (lang === "ko" ? q.en : q.ko) + "</span></figcaption></figure>";
+      var shown = WORKS.filter(function (w) { return w.img; });
+      var g = "";
+      for (var k = 0; k < shown.length; k++) {
+        var q = shown[k];
+        var at = PLACES.filter(function (p) { return p.id === q.place; })[0] || { en: "", ko: "" };
+        g += '<figure><div class="frame landscape" data-img="' + esc(q.img) + '"></div>' +
+             '<figcaption><span class="t">' + esc(q.word || "") + "</span>" +
+             '<span class="m">' + esc(lang === "ko" ? at.ko : at.en) + " · no. " + q.n + "</span></figcaption></figure>";
       }
-      works.innerHTML = w;
+      works.innerHTML = g;
       var sec = document.getElementById("placeWorksSection");
-      if (sec) sec.hidden = !w;          /* 사진이 하나도 없으면 섹션째 감춘다 */
-      if (w) hydrateImages(works);
+      if (sec) sec.hidden = !g;
+      if (g) hydrateImages(works);
     }
 
     var el;
-    if ((el = document.getElementById("cMapped"))) el.textContent = String(PLACES.length);
-    if ((el = document.getElementById("cTotal")) && typeof PLACES_TOTAL !== "undefined") el.textContent = String(PLACES_TOTAL);
-    if ((el = document.getElementById("cVideo")) && typeof VIDEOS_TOTAL !== "undefined") el.textContent = String(VIDEOS_TOTAL);
+    if ((el = document.getElementById("cTotal")) && typeof WORKS_TOTAL !== "undefined") el.textContent = String(WORKS_TOTAL);
+    if ((el = document.getElementById("cFilms"))) el.textContent = String(WORKS.filter(function (w) { return w.video; }).length);
+    if ((el = document.getElementById("cPlaces"))) el.textContent = String(PLACES.length);
   }
 
   function boot() {
