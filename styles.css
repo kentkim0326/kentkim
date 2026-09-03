@@ -32,7 +32,10 @@ p{margin:0 0 1.15em}
 .gold{color:var(--gold)}
 
 /* ---------- 상단 ---------- */
-.site-head{position:fixed;top:0;left:0;right:0;z-index:60;mix-blend-mode:difference}
+.site-head{position:fixed;top:0;left:0;right:0;z-index:60}
+.site-head::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(8,8,7,.72),rgba(8,8,7,0))}
+.site-head .wrap{position:relative}
 .site-head .wrap{display:flex;align-items:center;gap:24px;min-height:72px}
 .brand{font-family:var(--serif);font-size:1.2rem;letter-spacing:.06em;text-decoration:none;color:#fff}
 .site-nav{display:flex;gap:24px;margin-inline-start:auto}
@@ -48,12 +51,13 @@ p{margin:0 0 1.15em}
   background:var(--bg-2);overflow:hidden}
 .hero-img{position:absolute;inset:0}
 .hero-img img{width:100%;height:100%;object-fit:cover;opacity:.92}
-.hero::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(13,12,11,.92) 0%,rgba(13,12,11,.35) 42%,rgba(13,12,11,.15) 100%)}
+.hero::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(to top,rgba(10,9,8,.96) 0%,rgba(10,9,8,.86) 26%,rgba(10,9,8,.52) 52%,
+                  rgba(10,9,8,.28) 74%,rgba(10,9,8,.55) 100%)}
 .hero .wrap{position:relative;z-index:2;padding-bottom:clamp(48px,9vh,110px);width:100%}
-.hero h1{max-width:14ch}
-.hero .sub{font-family:var(--serif);font-size:clamp(1.1rem,2.2vw,1.6rem);color:var(--fg-2);
-  margin-top:22px;max-width:34ch}
+.hero h1{max-width:14ch;text-shadow:0 2px 30px rgba(0,0,0,.75),0 1px 4px rgba(0,0,0,.5)}
+.hero .sub{font-family:var(--serif);font-size:clamp(1.1rem,2.2vw,1.6rem);color:#ded8ce;
+  margin-top:22px;max-width:34ch;text-shadow:0 1px 20px rgba(0,0,0,.85),0 1px 3px rgba(0,0,0,.6)}
 .hero .cap{position:absolute;z-index:2;right:28px;bottom:28px;text-align:end;
   font-size:.72rem;letter-spacing:.1em;color:var(--fg-3);max-width:40ch}
 /* 히어로 이미지가 아직 없을 때: 글씨만으로 버틴다 */

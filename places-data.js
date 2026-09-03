@@ -62,8 +62,8 @@ const WORKS = [
   { n:118, place:"uljin-tower",     word:"자유",       en:"Freedom",                 video:"https://youtube.com/shorts/Mdk7LdZaCA8", img:"" },
   { n:117, place:"donghae",         word:"동해",       en:"Donghae — the East Sea",  video:"https://youtube.com/shorts/UP3AFOiB9vc", img:"" },
   { n:116, place:"gyeongpodae",     word:"경포대",     en:"Gyeongpodae",             video:"https://youtube.com/shorts/aPlSUiCu30M", img:"" },
-  { n:115, place:"gwongeumseong",   word:"Peak",       en:"",                        video:"https://youtube.com/shorts/WBgoisACCSo", img:"" },
-  { n:114, place:"gwongeumseong",   word:"권금성",     en:"Gwongeumseong",           video:"https://youtube.com/shorts/gofiL36XodE", img:"" },
+  { n:115, place:"gwongeumseong",   word:"Peak",       en:"",                        video:"https://youtube.com/shorts/WBgoisACCSo", img:"assets/places/IMG_5249.jpg" },
+  { n:114, place:"gwongeumseong",   word:"권금성",     en:"Gwongeumseong",           video:"https://youtube.com/shorts/gofiL36XodE", img:"assets/places/IMG_5238.jpg" },
   { n:113, place:"seorak-entrance", word:"석가모니",   en:"",                        video:"https://youtube.com/shorts/8ykTz1gW7NE", img:"" },
   { n:112, place:"seorak-entrance", word:"산",         en:"",                        video:"https://youtube.com/shorts/_8IcUP5RuXM", img:"" },
   { n:111, place:"sokcho-port",     word:"속초",       en:"Sokcho",                  video:"https://youtube.com/shorts/21JRdMbIpdM", img:"" },
@@ -73,7 +73,7 @@ const WORKS = [
   { n:107, place:"soyang-dam",      word:"춘천",       en:"Chuncheon",               video:"https://youtube.com/shorts/zvgy_QGm1Qk", img:"" },
   { n:106, place:"soyang-dam",      word:"소양강",     en:"Soyang River",            video:"https://youtube.com/shorts/ZAQA7_bxyrE", img:"" },
   { n:105, place:"soyang-dam",      word:"풍요",       en:"Abundance",               video:"https://youtube.com/shorts/20AK3E2Gmss", img:"" },
-  { n:104, place:"seongsan",        word:"START",      en:"",                        video:"https://www.youtube.com/shorts/MtybGxmjbgo", img:"" },
+  { n:104, place:"seongsan",        word:"START",      en:"",                        video:"https://www.youtube.com/shorts/MtybGxmjbgo", img:"assets/places/IMG_4814.jpg" },
   { n:103, place:"seongsan",        word:"일출",       en:"Sunrise",                 video:"https://www.youtube.com/shorts/Y3HBT-iT3TU", img:"" },
   { n:102, place:"seongsan",        word:"항해",       en:"Voyage",                  video:"https://www.youtube.com/shorts/JnzCh8C0K8U", img:"" }
 ];
