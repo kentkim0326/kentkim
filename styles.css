@@ -193,3 +193,21 @@ html[lang="ko"] body{word-break:keep-all}
 
 /* 히어로 영상 — 사진 위에 겹쳐 깔린다. 파일이 없으면 이 요소 자체가 생기지 않는다. */
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92}
+
+/* ---------- 속페이지 머리: 검은 화면 대신 그림 한 점 ----------
+   글벽 방지. 각 페이지 첫 화면에 그 페이지를 설명하는 사진을 깐다.
+   .hero 의 장치를 그대로 쓰되 높이만 낮춘다 — 사진이 없으면 .no-image 로 떨어진다. */
+.page-hero{min-height:clamp(360px,58svh,620px)}
+.page-hero.no-image{min-height:clamp(300px,42svh,480px)}
+.page-hero h1{max-width:20ch}
+.page-hero .eyebrow{text-shadow:0 1px 14px rgba(0,0,0,.9)}
+.page-hero .lede,.page-hero p{text-shadow:0 1px 18px rgba(0,0,0,.85)}
+.page-hero .wrap{padding-top:clamp(90px,14vh,150px)}
+
+/* 본문 사이에 끼우는 가로 밴드 — 글이 길어지는 자리를 그림으로 끊는다 */
+.band{position:relative;margin:clamp(40px,6vw,84px) 0;overflow:hidden;
+  border-radius:2px;background:var(--bg-2)}
+.band .frame{aspect-ratio:21/9}
+.band .frame img{width:100%;height:100%;object-fit:cover;display:block}
+.band figcaption{margin-top:12px;font-size:.78rem;letter-spacing:.06em;color:var(--fg-3)}
+@media (max-width:640px){ .band .frame{aspect-ratio:3/2} }
