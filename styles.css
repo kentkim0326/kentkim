@@ -216,3 +216,13 @@ html[lang="ko"] body{word-break:keep-all}
 .video-embed{position:relative;aspect-ratio:16/9;background:#000;border-radius:2px;overflow:hidden}
 .video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 .band figcaption{margin-top:12px;font-size:.78rem;letter-spacing:.06em;color:var(--fg-3)}
+/* ---------- 문의 폼 — 이메일 주소를 화면에 적어두지 않는다 ---------- */
+.contact-form{margin-top:28px;display:flex;flex-direction:column;gap:16px;max-width:440px}
+.contact-form label{display:flex;flex-direction:column;gap:6px;font-size:.8rem;letter-spacing:.04em;color:var(--fg-3)}
+.contact-form input,.contact-form textarea{font:inherit;font-size:.95rem;color:var(--fg);
+  background:var(--bg-2);border:1px solid var(--line);border-radius:2px;padding:10px 12px;resize:vertical}
+.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--gold)}
+.contact-form button{align-self:flex-start;margin-top:4px;font:inherit;font-size:.85rem;letter-spacing:.06em;
+  color:var(--bg);background:var(--gold);border:0;border-radius:2px;padding:11px 22px;cursor:pointer;transition:opacity .2s}
+.contact-form button:hover{opacity:.85}
+.contact-form .form-note{margin:0;font-size:.72rem;color:var(--fg-3)}

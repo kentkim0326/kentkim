@@ -171,12 +171,18 @@
 
 <hr class="rule">
 
-<section>
+<section id="contact">
   <div class="wrap narrow">
     <p class="eyebrow" data-t="pf.ask.eyebrow">Enquiries</p>
     <p class="lede" data-t="pf.ask.p1">Scale, number of works and canvas size are agreed with the organiser, and the fee follows from those. Tell me the date, the place, and roughly how the opening runs, and I will send a written proposal.</p>
     <p data-t="pf.ask.p2">Invoicing and contracting are handled in the ordinary way; documents required for a public body can be provided.</p>
-    <p><a class="link" href="mailto:kentkim@gmail.com">kentkim@gmail.com</a></p>
+    <form class="contact-form" id="contactForm">
+      <label><span data-t="cf.name">Name</span><input type="text" name="name" required></label>
+      <label><span data-t="cf.org">Gallery / institution</span><input type="text" name="org"></label>
+      <label><span data-t="cf.msg">Message</span><textarea name="msg" rows="4" required></textarea></label>
+      <button type="submit" data-t="cf.send">Send →</button>
+      <p class="form-note" data-t="cf.note">Opens your email app with this filled in, addressed and ready to send.</p>
+    </form>
   </div>
 </section>
 
@@ -185,7 +191,7 @@
 <footer class="site-foot">
   <div class="wrap">
     <span>© <span id="yr">2026</span> Kent Kim</span>
-    <span><a class="link" href="mailto:kentkim@gmail.com">kentkim@gmail.com</a></span>
+    <span><a class="link" href="#contact" data-t="foot.contact">Contact</a></span>
   </div>
 </footer>
 

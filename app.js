@@ -126,6 +126,17 @@
     if (!src) return;
     if (shouldSkipHeroVideo()) return;
 
+    /* 히어로 영상은 14MB 다. 사진만으로도 화면이 서므로, 받아서 손해인 곳에서는 아예 받지 않는다.
+       조건에 걸리면 poster 로 쓰던 사진이 그대로 남는다 — 페이지는 달라지지 않는다. */
+    try {
+      if (window.innerWidth < 900) return;                       /* 모바일·태블릿 */
+      var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (c) {
+        if (c.saveData) return;                                  /* 데이터 절약 모드 */
+        if (/^(slow-)?2g$|^3g$/.test(c.effectiveType || "")) return;  /* 느린 회선 */
+      }
+    } catch (e) {}
+
     var v = document.createElement("video");
     v.muted = true; v.defaultMuted = true;
     v.autoplay = true; v.loop = true; v.playsInline = true;
@@ -211,10 +222,30 @@
     if ((el = document.getElementById("cPlaces"))) el.textContent = String(PLACES.length);
   }
 
+  /* 문의 폼 — 주소를 화면·HTML 어디에도 그대로 적어두지 않는다. 메일 앱을 열어
+     받는 사람·제목·본문을 채워 주는 역할까지만 하고, 실제 전송은 방문자의 메일 앱이 한다. */
+  function setupContactForm() {
+    var form = document.getElementById("contactForm");
+    if (!form) return;
+    var addr = ["kentkim", "gmail.com"].join("@");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = form.name.value.trim();
+      var org = form.org.value.trim();
+      var msg = form.msg.value.trim();
+      var subject = "Enquiry from " + (name || "the website");
+      var body = msg + "\n\n" + name + (org ? "\n" + org : "");
+      window.location.href = "mailto:" + addr +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+    });
+  }
+
   function boot() {
     apply(window.currentLang);
     hydrateImages(document);
     renderPlaces();
+    setupContactForm();
     var yr = document.getElementById("yr");
     if (yr) yr.textContent = String(new Date().getFullYear());
   }
