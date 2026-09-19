@@ -126,16 +126,9 @@
     if (!src) return;
     if (shouldSkipHeroVideo()) return;
 
-    /* 히어로 영상은 14MB 다. 사진만으로도 화면이 서므로, 받아서 손해인 곳에서는 아예 받지 않는다.
-       조건에 걸리면 poster 로 쓰던 사진이 그대로 남는다 — 페이지는 달라지지 않는다. */
-    try {
-      if (window.innerWidth < 900) return;                       /* 모바일·태블릿 */
-      var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-      if (c) {
-        if (c.saveData) return;                                  /* 데이터 절약 모드 */
-        if (/^(slow-)?2g$|^3g$/.test(c.effectiveType || "")) return;  /* 느린 회선 */
-      }
-    } catch (e) {}
+    /* ⚠️ 여기에 window.innerWidth 로 막는 줄을 다시 넣지 말 것.
+       모바일에서도 영상을 보여 준다(대표님 결정, 2026-09-03). 거르는 조건은
+       shouldSkipHeroVideo() 하나에 모아 두었다 — 「동작 줄이기」·데이터 절약·2G/3G 셋뿐이다. */
 
     var v = document.createElement("video");
     v.muted = true; v.defaultMuted = true;
