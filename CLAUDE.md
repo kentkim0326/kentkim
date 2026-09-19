@@ -130,7 +130,9 @@ i18n.js         ★ 한국어 문장만 (영어는 HTML 안에 있다)
 app.js          언어 전환 · 이미지 지연 삽입 · 133 Places 렌더
 map.js          Leaflet 지도 (못 불러오면 조용히 물러나고 목록이 대신한다)
 places-data.js  ★ 133개 장소 좌표·영상·사진. 여기만 고치면 지도·목록·집계가 따라온다
-assets/         works/ places/ incoming/
+assets/         works/ places/ studio/ incoming/   ← 사이트가 실제로 쓰는 것만
+source-photos/  ★ 아직 짝이 안 지어진 원본 사진 113장. 배포에 안 올라간다(.vercelignore)
+.vercelignore   ★ 배포에서 뺄 것. 레포에는 남고 Vercel 에만 안 올라간다
 ```
 
 확인은 서버로 띄운다 (`file://` 는 스크립트가 막힌다):
@@ -242,6 +244,31 @@ avconvert --preset Preset640x480 --source 원본.mov --output hero-mobile.mp4
 보이지 않는다. 그래서 사진이 오기 전에도 페이지가 부끄럽지 않다.
 정리 안 된 사진은 `assets/incoming/` 에 그냥 올린다.
 
+### ⚠️ 용량 — `assets/` 에 넣는 순간 배포마다 쌓인다 (2026-09-19)
+
+**Vercel Deployment Storage 는 배포마다 그 배포의 파일 전체를 따로 센다.** 한 배포가
+130MB 면 50번 배포에 6.5GB 다 — 실제로 `kentkim` 이 **6.77GB** 까지 갔고 계정 한도
+(10GB)를 밀어 올린 주범이었다. 그래서 규칙 둘:
+
+1. **사이트가 지금 쓰지 않는 사진은 `assets/` 에 두지 않는다.** 원본은 `source-photos/`
+   에 두고 `.vercelignore` 가 배포에서 뺀다. **짝이 지어진 사진만 `assets/places/` 로
+   옮긴다** — 옮기는 순간부터 배포에 올라간다.
+2. **올리기 전에 줄인다.** 사진은 긴 변 1600px · JPEG q76(작품 그리드·히어로는 q82) ·
+   progressive, 영상은 640×360 · H.264 CRF 27 · 무음이면 **배경으로 쓰기에 충분하고
+   화질 차이가 눈에 안 보인다.** 원래 영상이 640×360 에 2.4Mbps 였다 — 해상도에 비해
+   비트레이트가 서너 배 과했다.
+
+```bash
+# 사진 (Pillow)
+python3 -c "from PIL import Image;im=Image.open('x.jpg').convert('RGB');im.save('x.jpg','JPEG',quality=76,optimize=True,progressive=True)"
+# 영상 (ffmpeg)
+ffmpeg -i 원본.mp4 -an -c:v libx264 -crf 27 -preset slow -movflags +faststart 결과.mp4
+```
+
+**이미 쌓인 것은 코드로 못 지운다.** Vercel 대시보드에서 프로젝트 →
+Deployments → 현재 Production 을 뺀 옛 배포를 지워야 수치가 내려간다
+(반영에 시간이 걸린다). MCP 에는 배포 삭제 도구가 없다.
+
 ### 133 Places 지도
 
 `places-data.js` 의 `PLACES` 배열이 전부다. 한 줄 넣으면 지도의 점·목록·
@@ -267,8 +294,11 @@ avconvert --preset Preset640x480 --source 원본.mov --output hero-mobile.mp4
         ① 133 Places 현장 사진 ② **갤러리 전시 사진**(SUN·EMC·PLATO·전시장 전경, 2023 개인전)
         ③ 작업실 사진. 그래서 **133장 ≠ 133점**이고, 한 작품을 여러 각도로 찍은 것도 여럿이다.
       ※ **파일명 순서는 그림 번호와도 촬영 순서와도 무관하다**(코드로 확인).
+      ※ **짝이 안 지어진 113장은 `source-photos/` 로 옮겼다**(2026-09-19, 용량 때문).
+        사진은 그대로 있고 배포에만 안 올라간다. **짝을 지으면 `assets/places/` 로 옮기고**
+        `places-data.js` 의 `img` 에 적는다.
       → 짝짓는 방법: **사진을 4×4 콘택트시트로 묶어 훑고**, 화폭의 낱말을 `WORKS` 의 `word` 와 맞춘다
-        (`PIL` 로 시트를 만들면 133장을 9장으로 볼 수 있다).
+        (`PIL` 로 시트를 만들면 113장을 8장으로 볼 수 있다).
       → **나머지 101점 목록(장소·낱말·영상)을 받으면 훨씬 빨라진다.**
 
 ⚠️ **함정 — `.place-group` 에 `padding:0` 을 반드시 둔다.** 장소 묶음을 `<section>` 으로 만드는데

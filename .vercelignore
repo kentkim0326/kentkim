@@ -1,0 +1,12 @@
+# 배포에 올리지 않는 것 — 레포에는 남아 있고 Vercel 에만 안 올라간다.
+# (Vercel Deployment Storage 는 배포마다 쌓이므로 안 쓰는 파일을 빼는 것이 핵심이다.)
+
+# 133 Places 작품 번호와 아직 짝이 안 지어진 원본 사진.
+# 짝이 지어지면 assets/places/ 로 옮기면 그때부터 배포에 올라간다.
+source-photos
+
+# 문서 — 사이트가 쓰지 않는다.
+CLAUDE.md
+README.md
+assets/README.md
+assets/incoming
